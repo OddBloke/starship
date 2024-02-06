@@ -38,7 +38,10 @@ prompt_starship_precmd() {
         unset STARSHIP_START_TIME
     # Drop status and duration otherwise
     else
-        unset STARSHIP_DURATION STARSHIP_CMD_STATUS STARSHIP_PIPE_STATUS
+        if [ -z "${STARSHIP_ZSH_RETAIN_STATUS:-}" ]; then
+            unset STARSHIP_CMD_STATUS STARSHIP_PIPE_STATUS
+        fi
+        unset STARSHIP_DURATION
     fi
 
     # Use length of jobstates array as number of jobs. Expansion fails inside
